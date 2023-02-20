@@ -21,7 +21,6 @@ public class InteractionListener extends ListenerAdapter{
 		InteractionListener il = new InteractionListener();
 		super.onSlashCommandInteraction(event);
 		
-		
 		/*
 		switch(event.getName()) {
 		

@@ -16,8 +16,11 @@ import javax.swing.ImageIcon;
 import javax.validation.constraints.NotNull;
 
 import Constants.BotSensor;
-import Constants.Emotes;
+import Constants.Emoji;
+import Constants.Emote;
+import Constants.Role;
 import Interpretors.BotInterpretor;
+import Interpretors.MemberInterpretor;
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -28,7 +31,7 @@ public class MessageListener extends ListenerAdapter{
 	//Random number generator
 	static Random rand = new Random();
 	
-	@SuppressWarnings({ "unlikely-arg-type", "deprecation" })
+	@SuppressWarnings({ "unlikely-arg-type", "deprecation", "unused" })
 	@Override
 	public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 		super.onMessageReceived(event);
@@ -36,8 +39,8 @@ public class MessageListener extends ListenerAdapter{
 		//								Imports
 		//----------------------------------------------------------------------------
 		BotInterpretor bI = new BotInterpretor();
+		MemberInterpretor mI = new MemberInterpretor();
 		BotSensor botSense = new BotSensor();
-		Emotes emote = new Emotes();
 		//----------------------------------------------------------------------------
 		//							 Imports [End]
 		//----------------------------------------------------------------------------
@@ -67,67 +70,17 @@ public class MessageListener extends ListenerAdapter{
 		/*These responses will be printed X the amount of times the program has been run 
 		without restarting the Client/Stopping APP before running it again.*/
 		
-		//Role:KurohanaΩ(id=509576563856113677)
-		//Role:Shojiki(id=509576502422274065)
-		//Bomb God.(id=509576610018492428)
-		//Ciel(id=530120981025521665)
-		//Volk(id=517142707903135774)
-		int randomMessage = rand.nextInt(3);
-		//---------------------------
-		//			Frigg
-		//---------------------------
-		if(message.contains(":gavin:")|| message.contains(":cringe:")){
-			  System.out.println("Triggered Switch");
-			  int friggMessage = rand.nextInt(6);
-			  //System.out.println(event.getMessage().getMember().getRoles());
-			  if ((roles.contains("Bomb God.(id=509576610018492428)"))) {
-				  switch(friggMessage) {
-				  case 0:
-					  event.getChannel().sendMessage("Man Frigg, shut your dumbass up").queue();
-					  break;
-				  case 1:
-					  event.getChannel().sendMessage("You still using that damn emote").queue();
-					  break;
-				  case 2:
-					  event.getChannel().sendMessage("I will remove that shit").queue();
-					  break;
-				  case 3:
-					  event.getChannel().sendMessage("This server literally gave me permissions to remove that shit").queue();
-					  break;
-				  case 4:
-					  File file = new File("C:/Users/Shoji/OneDrive/Documents/emojis/gavin.png");
-					  event.getChannel().sendFiles(FileUpload.fromData(file)).queue();
-					  return;
-				  case 5:
-					  event.getChannel().sendMessage("Literally the worst emote in the server").queue();
-					  break;
-				  }
-				  return;
-			  }
+		//Frigg
+		if((roles.contains(Role.FRIGG))) { 
+		if(message.contains(Emoji.GAVIN)|| message.contains(Emoji.GAVIN2)){
+			event.getChannel().sendMessage(mI.friggReactions()).queue();
 		}
-		//---------------------------
-		//		  Frigg[End]
-		//---------------------------
-		switch(message) {
-		  case ":wegay:":
-			  System.out.println("Triggered Switch!!");
-			  switch(randomMessage) {
-			  case 0:
-				  event.getChannel().sendMessage("Cut that gay shit out man").queue();
-				  break;
-			  case 1:
-				  event.getChannel().sendMessage("Can I get a kiss too?").queue();
-				  break;
-			  case 2:
-				  event.getChannel().sendMessage("Stop gay").queue();
-				  break;
-			  }
-			  return;
-		  
+		}//Frigg end
+		
+		if(message.contains(Emoji.WEGAY)){
+			event.getChannel().sendMessage(mI.wegayReactions()).queue();
 		}
-		
-		if((roles.contains("Role:Shojiki(id=509576502422274065)"))) {
-		
+		if((roles.contains(Role.SHOJIKI))) {
 			//after a certain amount of characters un-interrupted, utter a response
 		}
 		//----------------------------------------------------------------------------
@@ -141,28 +94,19 @@ public class MessageListener extends ListenerAdapter{
 		String [] messageArray = message.split(" ");
 		
 		String lMessage = message.toLowerCase();
-		 
-		for (int pronouns = 0; pronouns < botSense.botPronouns.size(); pronouns++) {
-			//Iterate through the list of pronouns and the message to determine if the bot is being referenced
-			if (message.contains(botSense.botPronouns.get(pronouns))) {
-				//Iterate through the list of offensive language
-				for (int i = 0; i < messageArray.length; i++) {
-					//Iterate through each word to determine if the bot is being insulted
-					if (botSense.profanity.contains(messageArray[i].toLowerCase()))
-					{
-						String botReaction = bI.botReactions(messageArray, lMessage);
+		//This method will determine if offensive language towards the bot has occurred
+		String botReaction = bI.botReactions(messageArray, lMessage);
 		
-						if (botReaction.contains(emote.EMOTEDESTINATION)){
-							File emoteLocation = new File(""+ botReaction);
-							event.getChannel().sendFiles(FileUpload.fromData(emoteLocation)).queue();
-						}
-						else {
-							event.getChannel().sendMessage(botReaction).queue();
-						}
-					}
-				}
-			}
+		if (botReaction.contains(Emote.EMOTEDESTINATION)){
+			File emoteLocation = new File(""+ botReaction);
+			event.getChannel().sendFiles(FileUpload.fromData(emoteLocation)).queue();
 		}
+		else if (botReaction == ""){
+			//System.out.println("nothing happens");
+		}
+		else {
+			event.getChannel().sendMessage(botReaction).queue();
+		}		
 		//----------------------------------------------------------------------------
 		//								Bot Reactions [End]
 		//----------------------------------------------------------------------------

@@ -1,13 +1,13 @@
-package Constants;
+package Util;
 
 import java.util.Random;
 
-public final class RandomResponseGen {
+public final class RandomGen {
 	//Random number generator
 	static Random rand = new Random();
 	
 	//Returns the length of each reply
-	public static int randomGenerator (int responseSize) {
+	public static int respGen (int responseSize) {
 		
 		int randomResponse = rand.nextInt(responseSize);
 		
