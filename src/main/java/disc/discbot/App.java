@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import events.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 @SpringBootApplication(proxyBeanMethods = false)
@@ -22,7 +23,9 @@ public class App {
     		.enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MESSAGES)
     		.addEventListeners(new MessageListener(), new InitializeListener(), new InteractionListener())
     		.build();
-   
-    	//jda.upsertCommand("response", "Generic bot response").setGuildOnly(true).queue();
+    	//System.out.println(jda.getggetUsers());
+    	jda.upsertCommand("purge", "Delete a series of messages from a user").setGuildOnly(true)
+    	.addOption(OptionType.INTEGER, "value", "Delete a maximum of 50 messages.", true)
+    	.queue();
     };
 }

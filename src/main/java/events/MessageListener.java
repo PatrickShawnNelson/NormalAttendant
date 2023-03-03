@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -21,6 +22,7 @@ import Constants.Emote;
 import Constants.Role;
 import Interpretors.BotInterpretor;
 import Interpretors.MemberInterpretor;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -30,6 +32,8 @@ import scalr.Scalr;
 public class MessageListener extends ListenerAdapter{
 	//Random number generator
 	static Random rand = new Random();
+	static int frigCounter = 0;
+	static ArrayList<String> messages = new ArrayList<String>();
 	
 	@SuppressWarnings({ "unlikely-arg-type", "deprecation", "unused" })
 	@Override
@@ -50,13 +54,31 @@ public class MessageListener extends ListenerAdapter{
 		//----------------------------------------------------------------------------
 		String message = (event.getMessage().getContentDisplay()).toString();
 		String roles = (event.getMember().getRoles()).toString();
-		
+		//System.out.println(botSense.botReplyFrigg.length + 0);
 		if(event.getAuthor().isBot()) {
 			return;
 		}
 		else {
 			System.out.println(event.getMember().getNickname() + ": " + event.getMessage().getContentDisplay());
 			System.out.println(event.getMember().getNickname() + "'s Roles: " + roles);
+			System.out.println(event.getAuthor());
+		//----------------------------------------------------------------------------
+		//							 Delete Messages
+		//----------------------------------------------------------------------------
+			//As long as the messages don't exceed 50, add it to the list of messages
+			if (messages.size() <= 50) {
+				messages.add(event.getMessageId());
+			}
+			//If list of messages exceeds acceptable threshold, remove the first message from the list
+			else if(messages.size() >= 50) {
+				messages.remove(0);
+				messages.add(event.getMessageId());
+			}
+		//----------------------------------------------------------------------------
+		//						  Delete Messages [End]
+		//----------------------------------------------------------------------------
+			//Shojiki(id=239584033426767874)
+			//Co(id=190239284123533312)
 			//System.out.println("Activity: " + event.getMessage().getActivity());
 			//System.out.println(event.getGuild().getRoles());
 		}
@@ -73,12 +95,37 @@ public class MessageListener extends ListenerAdapter{
 		//Frigg
 		if((roles.contains(Role.FRIGG))) { 
 		if(message.contains(Emoji.GAVIN)|| message.contains(Emoji.GAVIN2)){
-			event.getChannel().sendMessage(mI.friggReactions()).queue();
+			String friggReaction = mI.friggReactions();
+			frigCounter++;
+			if (friggReaction.contains(Emote.EMOTEDESTINATION)){
+				File emoteLocation = new File(""+ friggReaction);
+				event.getChannel().sendFiles(FileUpload.fromData(emoteLocation)).queue();
+			}
+			else {
+				if (frigCounter >= 5) {
+					//Say it in caps
+					event.getChannel().sendMessage(mI.friggReactions().toUpperCase()).queue();
+					if (frigCounter >= 8) {
+						frigCounter = 0;
+					}
+				}
+				else {
+					event.getChannel().sendMessage(mI.friggReactions()).queue();
+				}
+			}
 		}
 		}//Frigg end
 		
 		if(message.contains(Emoji.WEGAY)){
-			event.getChannel().sendMessage(mI.wegayReactions()).queue();
+			String gayReaction = mI.wegayReactions();
+			
+			if (gayReaction.contains(Emote.EMOTEDESTINATION)){
+				File emoteLocation = new File(""+ gayReaction);
+				event.getChannel().sendFiles(FileUpload.fromData(emoteLocation)).queue();
+			}
+			else {
+				event.getChannel().sendMessage(mI.wegayReactions()).queue();
+			}
 		}
 		if((roles.contains(Role.SHOJIKI))) {
 			//after a certain amount of characters un-interrupted, utter a response
@@ -113,7 +160,7 @@ public class MessageListener extends ListenerAdapter{
 		//----------------------------------------------------------------------------
 		//							  	Emoji Creation
 		//----------------------------------------------------------------------------
-		String imageStore = "C:/Users/Shoji/OneDrive/Documents/emojis/";
+		String imageStore = Emote.EMOTEDESTINATION;
 		//Set emoji
 		
 		//Bot reads for these exact words before conducting processing
