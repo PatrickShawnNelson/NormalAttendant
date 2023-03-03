@@ -13,14 +13,39 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.Command.Option;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
 public class InteractionListener extends ListenerAdapter{
-	
+	int messagesD = 0;
 	@Override
 	public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
 		InteractionListener il = new InteractionListener();
 		super.onSlashCommandInteraction(event);
 		
+		if (event.getName().equals("purge")) {
+			OptionMapping option = event.getOption("value");
+			event.deferReply().queue();
+			if (option.getAsInt() > MessageListener.messages.size()) {
+				event.getHook().sendMessage("This exceeds the amount of values that are able to be deleted (" +
+				MessageListener.messages.size() + ")").queue();
+			}
+			else {
+				//Remove messages from the channel
+				for (int i = 0; i < option.getAsInt(); i++) {
+					event.getChannel().deleteMessageById(MessageListener.messages.get(i)).queue();
+					messagesD++;
+				}
+				
+				//Remove messages from array
+				for (int i = 0; i < messagesD; i++) {
+					MessageListener.messages.remove(i);
+				}
+				
+				messagesD = 0;
+				event.getHook().sendMessage(option.getAsString() + " Message(s) have been deleted").queue();
+			//event.reply("deleted").queue();
+			}
+		}
 		/*
 		switch(event.getName()) {
 		
