@@ -15,7 +15,7 @@ public class App {
     public static void main(String[] args) {
         //SpringApplication.run(App.class, args);
     	
-    	final String T = "MTA3MTk5MTU1MzAyMDY3NDA2OA.GuexYQ.dw71m9Jcy-YEWInT0TwZFQTjrgKpgIIdWpXQ3c";
+    	final String T = "NULL";
     	
     	JDABuilder jdb = JDABuilder.createDefault(T);
     	//6f102caa9e314357b04208dea6eb2d69
