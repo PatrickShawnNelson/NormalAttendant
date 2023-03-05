@@ -29,10 +29,26 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/commons-cli-1.5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/httpclient5-5.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/httpclient5-cache-5.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/httpclient5-fluent-5.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/httpclient5-testing-5.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/httpclient5-win-5.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/httpcore5-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/httpcore5-h2-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/httpcore5-reactive-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/httpcore5-testing-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/jna-5.12.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/jna-platform-5.12.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/reactive-streams-1.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/rxjava-2.2.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/rxjava-3.1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XShoj/Downloads/clienthttp/lib/slf4j-api-1.7.36.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

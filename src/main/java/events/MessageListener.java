@@ -21,7 +21,9 @@ import Constants.Emoji;
 import Constants.Emote;
 import Constants.Role;
 import Interpretors.BotInterpretor;
+import Interpretors.ImageInterpretor;
 import Interpretors.MemberInterpretor;
+import disc.discbot.test;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -44,6 +46,7 @@ public class MessageListener extends ListenerAdapter{
 		//----------------------------------------------------------------------------
 		BotInterpretor bI = new BotInterpretor();
 		MemberInterpretor mI = new MemberInterpretor();
+		ImageInterpretor iI = new ImageInterpretor();
 		BotSensor botSense = new BotSensor();
 		//----------------------------------------------------------------------------
 		//							 Imports [End]
@@ -160,81 +163,35 @@ public class MessageListener extends ListenerAdapter{
 		//----------------------------------------------------------------------------
 		//							  	Emoji Creation
 		//----------------------------------------------------------------------------
-		String imageStore = Emote.EMOTEDESTINATION;
-		//Set emoji
-		
+		//Set Emoji
 		//Bot reads for these exact words before conducting processing
 		if (message.equalsIgnoreCase("@Based East Side Slave Set emoji")) {
 			
-			try {
-				//Retrieves the list of attachments on that message
-				List<Attachment> messageImage = (event.getMessage().getAttachments());
+			//Retrieves the list of attachments on that message
+			List<Attachment> messageImage = (event.getMessage().getAttachments());
 			
-				//Looping through several attachments
-				for (Attachment attachment:messageImage) {
-					//attachment = messageImage.get(i);
-					
-					//Downloads the attachment
-					attachment.downloadToFile(imageStore + attachment.getFileName())
-					.thenAccept(file -> System.out.println("Saved attachment to " + file.getName()))
-					.exceptionally(t ->
-					{ // handle failure
-						t.printStackTrace();
-						return null;
-					});
-				}
-				
-				//Confirms the saving of the attachment
-				event.getChannel().sendMessage("Sure, saving the image(s) to my drive.").queue();
-				}
-			catch (Exception e) {
-				event.getChannel().sendMessage("How about you attach an image to set? Dumbass").queue();
-			}
-
+			//Stores it to drive and announces response
+			event.getChannel().sendMessage(iI.setImage(messageImage)).queue();
 		}
-		//Make emoji
+		
+		//Make Emoji
 		//Bot reads for these exact words before conducting processing
 		if (message.equalsIgnoreCase("@Based East Side Slave Make emoji")) {
 			
-			try {
-				//Reads the attachment to reference
-				List<Attachment> messageImage = (event.getMessage().getAttachments());
+			//Reads the attachment to reference
+			List<Attachment> messageImage = (event.getMessage().getAttachments());
+			
+			//Looping through several attachments
+			for (Attachment attachment:messageImage) {
+				//Searches for the attachment in the drive
+				File file = new File(Emote.EMOTEDESTINATION + attachment.getFileName());
 				
-				//Looping through several attachments
-				for (Attachment attachment:messageImage) {
-					//Attachment attachment = messageImage.get(0);
-					
-					//Searches for the attachment in the drive
-					File file = new File(imageStore + attachment.getFileName());
+				//Removes bg, resizes it to emoji standard and announces response	
+				event.getChannel().sendMessage(iI.makeImage(attachment, file)).queue();
 				
-					BufferedImage bImage = null;
-
-					System.out.println(file);
-					//Retrieves the attachment
-					bImage = ImageIO.read(file);
-					System.out.println("retrieved file");
-					
-		        	//Resizes it
-					BufferedImage newBImage = Scalr.resize(bImage, 128);
-					
-					//File newfile = new File(imageStore + "new.png"); 
-					//Saves the attachment with its new size
-					ImageIO.write(newBImage, attachment.getFileExtension(), new File(""+file));
-
-					//event.getChannel().sendMessage("Retrieving from: " + newfile).queue();
-					
-					//Upload attachment
-					event.getChannel().sendFiles(FileUpload.fromData(file)).queue();
-					System.out.println("looking good");
-				}
-				//Confirms that it recognizes the attachment
-				event.getChannel().sendMessage("Sure, here is your emoji(s).").queue();
-				
-				}
-			catch (Exception e) {
-				event.getChannel().sendMessage("This is where you reference the emoji(s) you've previously set.").queue();
+				//Upload attachment
+				event.getChannel().sendFiles(FileUpload.fromData(file)).queue();
 			}
-	         
 		}
 		//----------------------------------------------------------------------------
 		//							  	Emoji Creation [End]

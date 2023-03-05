@@ -1,11 +1,13 @@
 package events;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import javax.swing.ImageIcon;
 import javax.validation.constraints.NotNull;
 
+import disc.discbot.test;
 import net.dv8tion.jda.api.entities.Icon;
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.entities.RichPresence.Image;
@@ -44,6 +46,18 @@ public class InteractionListener extends ListenerAdapter{
 				messagesD = 0;
 				event.getHook().sendMessage(option.getAsString() + " Message(s) have been deleted").queue();
 			//event.reply("deleted").queue();
+			}
+		}
+		
+		if (event.getName().equals("set-emoji")) {
+			event.deferReply().queue();
+			try {
+				//test.removeBG();
+				System.out.println("hey");
+				event.getHook().sendMessage("tested").queue();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		/*
