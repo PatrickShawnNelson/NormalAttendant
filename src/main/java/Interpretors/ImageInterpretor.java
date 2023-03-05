@@ -74,7 +74,7 @@ public class ImageInterpretor {
 			return "Sure, here is your emoji(s).";
 			}
 		catch (Exception e) {
-			return "This is where you reference the emoji(s) you've previously set.";
+			return "Having trouble determining the background of this image however I've still managed to resize it to an emoji.";
 			}
 	//----------------------------------------------------------------------------
 	//						   Make Emoji[End]
