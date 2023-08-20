@@ -1,0 +1,2 @@
+# NormalAttendant
+Discord Bot 
