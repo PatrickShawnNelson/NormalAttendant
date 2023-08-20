@@ -1,0 +1,8 @@
+disc.discbot.App=org.springframework.stereotype.Component,org.springframework.boot.SpringBootConfiguration
+disc.discbot.GreetingController=org.springframework.stereotype.Component
+disc.discbot.controllers.UserController=org.springframework.stereotype.Component
+disc.discbot.entities.Quiz=javax.persistence.Entity
+disc.discbot.entities.QuizQuestions=javax.persistence.Entity
+disc.discbot.entities.User=javax.persistence.Entity
+disc.discbot.repositories.QuizRepository=org.springframework.data.repository.Repository
+disc.discbot.repositories.UserRepository=org.springframework.data.repository.Repository
