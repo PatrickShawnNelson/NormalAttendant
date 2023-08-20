@@ -1,19 +1,20 @@
-package Interpretors;
+package disc.discbot.Interpretors;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import Constants.Emote;
 import disc.discbot.test;
+import disc.discbot.Constants.AttendantTV;
+import disc.discbot.Constants.Emote;
+import disc.discbot.Util.VideoStorage;
+import disc.discbot.scalr.Scalr;
 import net.dv8tion.jda.api.entities.Message.Attachment;
-import net.dv8tion.jda.api.utils.FileUpload;
-import scalr.Scalr;
 
 public class ImageInterpretor {
+	VideoStorage vs = new VideoStorage();
 	//----------------------------------------------------------------------------
 	//							  	Set Emoji
 	//----------------------------------------------------------------------------
@@ -38,13 +39,14 @@ public class ImageInterpretor {
 			return "Sure, saving the image(s) to my drive.";
 			}
 		catch (Exception e) {
-			return "How about you attach an image to set? Dumbass";
+			return "How about you attach an image to set?";
 		}
 		
 	}
 	//----------------------------------------------------------------------------
 	//							Set Emoji[End]
 	//----------------------------------------------------------------------------
+	
 	//----------------------------------------------------------------------------
 	//							  Make Emoji
 	//----------------------------------------------------------------------------
@@ -58,7 +60,7 @@ public class ImageInterpretor {
 			System.out.println("retrieved file");
 				
 	        //Resizes it
-			BufferedImage newBImage = Scalr.resize(bImage, 128);
+			BufferedImage newBImage = Scalr.resize(bImage, 128, 128);
 				
 			//File newfile = new File(imageStore + "new.png"); 
 			//Saves the attachment with its new size
@@ -74,10 +76,50 @@ public class ImageInterpretor {
 			return "Sure, here is your emoji(s).";
 			}
 		catch (Exception e) {
-			return "Having trouble determining the background of this image however I've still managed to resize it to an emoji.";
+			return "Having trouble determining the background of this image however I've still managed to resize it to the emoji standard.";
 			}
 	//----------------------------------------------------------------------------
 	//						   Make Emoji[End]
 	//----------------------------------------------------------------------------
 		}
+	//----------------------------------------------------------------------------
+	//							  	Upload
+	//----------------------------------------------------------------------------
+			public String upload(List<Attachment> messageImage) {
+				String filename = "";
+				try {
+					
+					//Looping through several attachments
+					for (Attachment attachment:messageImage)
+						try {
+							{
+								//attachment = messageImage.get(i);
+								filename = attachment.getFileName();
+								
+								//Downloads the attachment
+								attachment.downloadToFile(AttendantTV.VIDEOS + attachment.getFileName())
+								.thenAccept(file -> System.out.println("Saved attachment to " + file.getName()))
+								.exceptionally(t ->
+								{ // handle failure
+									t.printStackTrace();
+									return null;
+								});
+								vs.upload(filename);
+							}
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					
+					//Confirms the saving of the attachment
+					return "Sure, saving the image(s) to my drive.";
+					}
+				catch (Exception e) {
+					return "How about you attach an image to set?";
+				}
+				
+			}
+	//----------------------------------------------------------------------------
+	//							  	Upload
+	//----------------------------------------------------------------------------
 	}

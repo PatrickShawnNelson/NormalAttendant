@@ -1,4 +1,4 @@
-package Constants;
+package disc.discbot.Constants;
 
 public class Role {
 	

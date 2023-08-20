@@ -1,4 +1,4 @@
-package events;
+package disc.discbot.events;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -10,13 +10,12 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.validation.constraints.NotNull;
 
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.FileUpload;
-import scalr.Scalr;
+import disc.discbot.scalr.*;
 /*
 public class MessageListenerBackup extends ListenerAdapter{
 

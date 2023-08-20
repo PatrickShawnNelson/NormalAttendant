@@ -1,6 +1,8 @@
-package events;
+package disc.discbot.events;
 
-import javax.validation.constraints.NotNull;
+
+import org.jetbrains.annotations.NotNull;
+
 
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

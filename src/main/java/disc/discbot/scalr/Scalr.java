@@ -1,4 +1,4 @@
-package scalr;
+package disc.discbot.scalr;
 /**   
  * Copyright 2011 The Buzz Media, LLC
  * 
@@ -154,7 +154,7 @@ import javax.imageio.ImageIO;
  * case of applying an optional {@link BufferedImageOp}, lose the entire picture
  * all together in the result (long standing JDK bugs are filed for all of these
  * issues).
- * <p/>
+ * <p/> resize
  * imgscalr currently does nothing to work around this manually because it is a
  * defect in the native platform code itself. Fortunately it looks like the
  * issues are half-fixed in Java 7 and any manual workarounds we could attempt

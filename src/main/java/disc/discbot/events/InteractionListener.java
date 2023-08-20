@@ -1,26 +1,21 @@
-package events;
+package disc.discbot.events;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
-import javax.swing.ImageIcon;
-import javax.validation.constraints.NotNull;
+import org.jetbrains.annotations.NotNull;
 
-import Constants.Emote;
-import Interpretors.ImageInterpretor;
-import disc.discbot.test;
-import net.dv8tion.jda.api.entities.Icon;
+import disc.discbot.Selenium;
+import disc.discbot.Constants.Emote;
+import disc.discbot.Interpretors.ImageInterpretor;
 import net.dv8tion.jda.api.entities.Message.Attachment;
-import net.dv8tion.jda.api.entities.RichPresence.Image;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.Command.Option;
-import net.dv8tion.jda.api.utils.FileUpload;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import net.dv8tion.jda.api.utils.FileUpload;
 
 public class InteractionListener extends ListenerAdapter{
 	ImageInterpretor iI = new ImageInterpretor();
@@ -31,6 +26,39 @@ public class InteractionListener extends ListenerAdapter{
 		InteractionListener il = new InteractionListener();
 		super.onSlashCommandInteraction(event);
 		
+		if (event.getName().equals("upload-video")) {
+			System.out.println("Directing to 3rd party app");
+			Selenium s = new Selenium();
+			event.deferReply().queue();
+			try {
+				s.setup();
+			} catch (IOException | URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			event.getHook().sendMessage("Directing you to site").queue();
+		}
+		
+		//Upload
+		if (event.getName().equals("upload")) {
+			try {
+				System.out.println("found upload request");
+				OptionMapping option = event.getOption("attachment");
+				System.out.println("received upload");
+				event.deferReply().queue();
+			
+			//Retrieves the list of attachments on that message
+			List<Attachment> messageImage = new ArrayList<Attachment>();
+			messageImage.add(option.getAsAttachment());
+			
+			//Stores it to drive and announces response
+			event.getHook().sendMessage(iI.upload(messageImage)).queue();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+				
 		if (event.getName().equals("purge")) {
 			OptionMapping option = event.getOption("value");
 			event.deferReply().queue();

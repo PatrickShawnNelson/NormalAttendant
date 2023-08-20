@@ -1,41 +1,32 @@
-package events;
-import java.awt.Image;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
+package disc.discbot.events;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.validation.constraints.NotNull;
+import org.jetbrains.annotations.NotNull;
 
-import Constants.BotSensor;
-import Constants.Emoji;
-import Constants.Emote;
-import Constants.Role;
-import Interpretors.BotInterpretor;
-import Interpretors.ImageInterpretor;
-import Interpretors.MemberInterpretor;
-import disc.discbot.test;
-import net.dv8tion.jda.api.entities.Message;
+import disc.discbot.Constants.BotSensor;
+import disc.discbot.Constants.Emoji;
+import disc.discbot.Constants.Emote;
+import disc.discbot.Constants.Role;
+import disc.discbot.Interpretors.BotInterpretor;
+import disc.discbot.Interpretors.ImageInterpretor;
+import disc.discbot.Interpretors.MemberInterpretor;
+import disc.discbot.Util.LoggerObject;
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.FileUpload;
-import scalr.Scalr;
 
 public class MessageListener extends ListenerAdapter{
 	//Random number generator
 	static Random rand = new Random();
 	static int frigCounter = 0;
 	static ArrayList<String> messages = new ArrayList<String>();
+	LoggerObject messageLogs = new LoggerObject();
 	
 	@SuppressWarnings({ "unlikely-arg-type", "deprecation", "unused" })
 	@Override
@@ -51,20 +42,31 @@ public class MessageListener extends ListenerAdapter{
 		//----------------------------------------------------------------------------
 		//							 Imports [End]
 		//----------------------------------------------------------------------------
-		
+
 		//----------------------------------------------------------------------------
 		//								  Logs
 		//----------------------------------------------------------------------------
 		String message = (event.getMessage().getContentDisplay()).toString();
 		String roles = (event.getMember().getRoles()).toString();
+		String users = (event.getMember().getUser().toString());
+		String guild = (event.getGuild().getName().toString());
+		String messageID = (event.getMessageId());
+		String channel = (event.getChannel().getName());
+		
+		messageLogs.LoggerObjectConfig((Emote.RESOURCES + "Guilds/" + guild +"/"+ channel),  "messageLog.log");
+		//LoggerObject messageIDLogs = new LoggerObject((Emote.RESOURCES + "Guilds/" + guild +"/"+ channel),  "messageIDLog.txt");
+		messageLogs.logger.setLevel(Level.INFO);
+		
+		
 		//System.out.println(botSense.botReplyFrigg.length + 0);
 		if(event.getAuthor().isBot()) {
 			return;
 		}
 		else {
-			System.out.println(event.getMember().getNickname() + ": " + event.getMessage().getContentDisplay());
-			System.out.println(event.getMember().getNickname() + "'s Roles: " + roles);
-			System.out.println(event.getAuthor());
+			messageLogs.logger.info(event.getAuthor().getName() + ": " + event.getMessage().getContentDisplay());
+			//messageLogs.logger.info(event.getAuthor().getName() + "'s Roles: " + roles);
+			//messageIDLogs.logger.info(messageID);
+			
 		//----------------------------------------------------------------------------
 		//							 Delete Messages
 		//----------------------------------------------------------------------------
@@ -94,24 +96,72 @@ public class MessageListener extends ListenerAdapter{
 		//----------------------------------------------------------------------------
 		/*These responses will be printed X the amount of times the program has been run 
 		without restarting the Client/Stopping APP before running it again.*/
-		
+		//Tali
+		/*if (users.contains("taliaem")) {
+			
+		}*/
 		//Frigg
 		if((roles.contains(Role.FRIGG))) { 
-		if(message.contains(Emoji.GAVIN)|| message.contains(Emoji.GAVIN2)){
+		if(message.contains(Emoji.GAVIN)|| message.contains(Emoji.GAVIN2)|| message.contains("download_15.jpg")){
 			String friggReaction = mI.friggReactions();
+			boolean exit = false;
 			frigCounter++;
 			if (friggReaction.contains(Emote.EMOTEDESTINATION)){
 				File emoteLocation = new File(""+ friggReaction);
 				event.getChannel().sendFiles(FileUpload.fromData(emoteLocation)).queue();
+				if (friggReaction.contains("derp.png")) {
+					event.getChannel().sendMessage("This you??").queue();
+					
+				}
+			}
+			else if (friggReaction.contains("deleteMessage")) {
+				event.getMessage().delete().queue();
 			}
 			else {
-				if (frigCounter >= 5) {
+				if (frigCounter >= 20) {
 					//Say it in caps
-					event.getChannel().sendMessage(mI.friggReactions().toUpperCase()).queue();
-					if (frigCounter >= 8) {
-						frigCounter = 0;
+					//event.getChannel().sendMessage(mI.friggReactions().toUpperCase()).queue();
+					event.getChannel().sendMessage("We riding gavin till it dies.").queue();
+					event.getChannel().sendTyping().queue();
+					
+					File emoteLocation = new File(""+ Emote.GAVIN);
+					while (frigCounter >= 4) {
+						for (int i = 0; i < 4; i++) {
+							event.getChannel().sendFiles(FileUpload.fromData(emoteLocation)).queue();
+							frigCounter++;
+						}
+						
+						event.getChannel().sendTyping().queue();
+						event.getChannel().sendMessage("GARBAGE").queue();
+						event.getChannel().sendTyping().queue();
+						
+						for (int i = 0; i < 6; i++) {
+							event.getChannel().sendFiles(FileUpload.fromData(emoteLocation)).queue();
+							frigCounter++;
+						}
+						event.getChannel().sendTyping().queue();
+						event.getChannel().sendMessage("ASS").queue();
+						event.getChannel().sendTyping().queue();
+						
+						for (int i = 0; i < 10; i++) {
+							event.getChannel().sendFiles(FileUpload.fromData(emoteLocation)).queue();
+							frigCounter++;
+						}
+						event.getChannel().sendTyping().queue();
+						event.getChannel().sendMessage("EMOTE").queue();
+						event.getChannel().sendTyping().queue();
+						
+						event.getChannel().sendMessage("```This bot has been terminated```").queue();
+						if (frigCounter >= 20) {
+							frigCounter = -20;
+						}
+						
+						//if (frigCounter >= 8) {
+							//frigCounter = 0;
+						//}
 					}
-				}
+					
+				}// Include case where at certain negative values, it ignores frig
 				else {
 					event.getChannel().sendMessage(mI.friggReactions()).queue();
 				}
@@ -119,6 +169,7 @@ public class MessageListener extends ListenerAdapter{
 		}
 		}//Frigg end
 		
+		//Gay emote
 		if(message.contains(Emoji.WEGAY)){
 			String gayReaction = mI.wegayReactions();
 			
@@ -130,6 +181,7 @@ public class MessageListener extends ListenerAdapter{
 				event.getChannel().sendMessage(mI.wegayReactions()).queue();
 			}
 		}
+		
 		if((roles.contains(Role.SHOJIKI))) {
 			//after a certain amount of characters un-interrupted, utter a response
 		}
@@ -150,22 +202,38 @@ public class MessageListener extends ListenerAdapter{
 		if (botReaction.contains(Emote.EMOTEDESTINATION)){
 			File emoteLocation = new File(""+ botReaction);
 			event.getChannel().sendFiles(FileUpload.fromData(emoteLocation)).queue();
+			
+			if (botReaction.contains("derp.png")) {
+				event.getMessage().reply("This you??").queue();
+				
+			}
+			
+			if (botReaction.contains("notmad.png")) {
+				event.getChannel().sendTyping();
+				event.getMessage().reply("https://tenor.com/view/crying-black-guy-meme50fps-interpolated-interpolated-crying-black-guy-crying-crying-black-guy-gif-23747218").queue();
+				
+			}
+			
 		}
 		else if (botReaction == ""){
 			//System.out.println("nothing happens");
+			
+		} else if (botReaction.contains("deleteMessage")) {
+			event.getMessage().delete().queue();
 		}
 		else {
-			event.getChannel().sendMessage(botReaction).queue();
+			event.getMessage().reply(botReaction).queue();
 		}		
 		//----------------------------------------------------------------------------
 		//								Bot Reactions [End]
 		//----------------------------------------------------------------------------
+		
 		//----------------------------------------------------------------------------
 		//							  	Emoji Creation
 		//----------------------------------------------------------------------------
 		//Set Emoji
 		//Bot reads for these exact words before conducting processing
-		if (message.equalsIgnoreCase("@Based East Side Slave Set emoji")) {
+		if (message.equalsIgnoreCase("Attendant" + /*event.get*/ " Set emoji")) {
 			
 			//Retrieves the list of attachments on that message
 			List<Attachment> messageImage = (event.getMessage().getAttachments());
@@ -176,7 +244,7 @@ public class MessageListener extends ListenerAdapter{
 		
 		//Make Emoji
 		//Bot reads for these exact words before conducting processing
-		if (message.equalsIgnoreCase("@Based East Side Slave Make emoji")) {
+		if (message.equalsIgnoreCase("Attendant Make emoji")) {
 			
 			//Reads the attachment to reference
 			List<Attachment> messageImage = (event.getMessage().getAttachments());
@@ -196,6 +264,5 @@ public class MessageListener extends ListenerAdapter{
 		//----------------------------------------------------------------------------
 		//							  	Emoji Creation [End]
 		//----------------------------------------------------------------------------
-		
 	}
 }

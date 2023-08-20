@@ -1,4 +1,4 @@
-package Util;
+package disc.discbot.Util;
 
 import java.util.Random;
 

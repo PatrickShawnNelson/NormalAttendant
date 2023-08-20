@@ -1,7 +1,7 @@
-package Interpretors;
+package disc.discbot.Interpretors;
 
-import Constants.BotSensor;
-import Constants.Emoji;
+import disc.discbot.Constants.BotSensor;
+import disc.discbot.Constants.Emoji;
 
 public class MemberInterpretor {
 	BotSensor sensor = new BotSensor();

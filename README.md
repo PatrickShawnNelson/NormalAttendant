@@ -1,1 +1,2 @@
-# BasedEastSideBot
+# NormalAttendant
+Discord Bot 
