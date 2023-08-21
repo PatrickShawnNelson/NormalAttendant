@@ -15,7 +15,13 @@ import disc.discbot.Constants.Role;
 import disc.discbot.Interpretors.BotInterpretor;
 import disc.discbot.Interpretors.ImageInterpretor;
 import disc.discbot.Interpretors.MemberInterpretor;
+import disc.discbot.Interpretors.UserInterpretor;
 import disc.discbot.Util.LoggerObject;
+import disc.discbot.controllers.UserController;
+import disc.discbot.dtos.UpdateUserRequest;
+import disc.discbot.entities.DiscordUser;
+import disc.discbot.repositories.UserRepository;
+import disc.discbot.services.UserService;
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -27,7 +33,7 @@ public class MessageListener extends ListenerAdapter{
 	static int frigCounter = 0;
 	static ArrayList<String> messages = new ArrayList<String>();
 	LoggerObject messageLogs = new LoggerObject();
-	
+
 	@SuppressWarnings({ "unlikely-arg-type", "deprecation", "unused" })
 	@Override
 	public void onMessageReceived(@NotNull MessageReceivedEvent event) {
@@ -39,6 +45,8 @@ public class MessageListener extends ListenerAdapter{
 		MemberInterpretor mI = new MemberInterpretor();
 		ImageInterpretor iI = new ImageInterpretor();
 		BotSensor botSense = new BotSensor();
+		UserInterpretor uI = new UserInterpretor();
+		UpdateUserRequest uR = new UpdateUserRequest();
 		//----------------------------------------------------------------------------
 		//							 Imports [End]
 		//----------------------------------------------------------------------------
@@ -52,11 +60,25 @@ public class MessageListener extends ListenerAdapter{
 		String guild = (event.getGuild().getName().toString());
 		String messageID = (event.getMessageId());
 		String channel = (event.getChannel().getName());
+		/*uR.setUserName(users);
+		try {
+			uI.updateUser(uR);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//UpdateUserRequest userRequest = new UpdateUserRequest();
+		//userRequest.setUserName(users);
+		/*try {
+			userControl.updateUser(userRequest);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		
 		messageLogs.LoggerObjectConfig((Emote.RESOURCES + "Guilds/" + guild +"/"+ channel),  "messageLog.log");
 		//LoggerObject messageIDLogs = new LoggerObject((Emote.RESOURCES + "Guilds/" + guild +"/"+ channel),  "messageIDLog.txt");
 		messageLogs.logger.setLevel(Level.INFO);
-		
 		
 		//System.out.println(botSense.botReplyFrigg.length + 0);
 		if(event.getAuthor().isBot()) {
@@ -140,7 +162,7 @@ public class MessageListener extends ListenerAdapter{
 							frigCounter++;
 						}
 						event.getChannel().sendTyping().queue();
-						event.getChannel().sendMessage("ASS").queue();
+						event.getChannel().sendMessage("TRASH").queue();
 						event.getChannel().sendTyping().queue();
 						
 						for (int i = 0; i < 10; i++) {
