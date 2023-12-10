@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<DiscordUser, Integer>  {
 
 	Optional<DiscordUser> findByUserID(int id);
 	Optional<DiscordUser> findByUserName(String name);
-	
+
 	//Optional<List<User>> findAllByUserNameNotNull();
 }
 

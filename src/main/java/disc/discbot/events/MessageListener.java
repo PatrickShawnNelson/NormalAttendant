@@ -60,6 +60,7 @@ public class MessageListener extends ListenerAdapter{
 		String guild = (event.getGuild().getName().toString());
 		String messageID = (event.getMessageId());
 		String channel = (event.getChannel().getName());
+		
 		/*uR.setUserName(users);
 		try {
 			uI.updateUser(uR);
@@ -85,6 +86,10 @@ public class MessageListener extends ListenerAdapter{
 			return;
 		}
 		else {
+			if (event.getMessage().getChannelType().isAudio() == true) {
+				event.getMessage().getChannel().sendMessage(event.getMessage().getContentRaw()).setTTS(true).queue();
+				//event.getGuild().getAudioManager().
+			}
 			messageLogs.logger.info(event.getAuthor().getName() + ": " + event.getMessage().getContentDisplay());
 			//messageLogs.logger.info(event.getAuthor().getName() + "'s Roles: " + roles);
 			//messageIDLogs.logger.info(messageID);

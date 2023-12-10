@@ -34,4 +34,20 @@ public class Quiz {
 			inverseJoinColumns = {@JoinColumn(name="question_id")}
 			)
     private List <QuizQuestions> questions;
+    
+    public String getQuizName() {
+		return quizName;
+	}
+    
+	public void setQuizName(String quizName) {
+		this.quizName = quizName;
+	}
+	
+	public Integer getUserID() {
+		return userID;
+	}
+    
+	public void setUserID(Integer userID) {
+		this.userID = userID;
+	}
 }

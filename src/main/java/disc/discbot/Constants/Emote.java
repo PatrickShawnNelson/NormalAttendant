@@ -1,9 +1,7 @@
 package disc.discbot.Constants;
 
-public final class Emote {
-
-	public static final String EMOTEDESTINATION = "C:/Users/XShoj/OneDrive/Documents/emojis/";
-	public static final String RESOURCES = "./src/main/resources/";
+public final class Emote extends GlobalConstants {
+	
 	
 	public static final String BRUH = EMOTEDESTINATION + "bruh.png";
 	

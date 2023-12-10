@@ -42,7 +42,7 @@ public class LoggerObject {
 		e.printStackTrace();
 	}
 	
-	logger = Logger.getLogger("User");
+	logger = Logger.getLogger(filePath);
 	logger.addHandler(fh);
 	SimpleFormatter formatter = new SimpleFormatter();
 	fh.setFormatter(formatter);

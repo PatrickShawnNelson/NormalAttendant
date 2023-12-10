@@ -40,18 +40,34 @@ public class App {
     	jda.upsertCommand("purge", "Delete a series of messages from a user").setGuildOnly(true)
     	.addOption(OptionType.INTEGER, "value", "Delete a maximum of 50 messages.", true)
     	.queue();
-    	jda.upsertCommand("set-emoji", "Attach an image to be set for further processing").setGuildOnly(true)
+    	jda.upsertCommand("set-emoji", "Attach an image to be set for further processing. Does not do well with black/white images and text.").setGuildOnly(true)
     	.addOption(OptionType.ATTACHMENT, "attachment", "Please submit the attachment(s)", true)
     	.queue();
-    	jda.upsertCommand("make-emoji", "Turn the previously set image into a backgroundless emoji").setGuildOnly(true)
+    	jda.upsertCommand("make-emoji-no-bg", "Turn the previously set image into a backgroundless emoji as png").setGuildOnly(true)
     	.addOption(OptionType.ATTACHMENT, "attachment", "Please reference the attachment(s)", true)
     	.queue();
-    	jda.upsertCommand("upload-video", "Opens a vendor that accepts and coverts uploads into links to share in the chat").setGuildOnly(true)
+    	
+    	jda.upsertCommand("make-emoji", "Resize the previously set image into an emoji as png").setGuildOnly(true)
+    	.addOption(OptionType.ATTACHMENT, "attachment", "Please reference the attachment(s)", true)
     	.queue();
+    	
+    	/*jda.upsertCommand("upload-video", "Opens a vendor that accepts and coverts uploads into links to share in the chat").setGuildOnly(true)
+    	.queue();*/
    
-    		jda.upsertCommand("upload", "Video too big? I'll upload it for you").setGuildOnly(true)
-    		.addOption(OptionType.ATTACHMENT, "attachment", "Please submit the attachment", true)
-    		.queue();
+		jda.upsertCommand("upload", "Video too big? I'll upload it for you").setGuildOnly(true)
+		.addOption(OptionType.ATTACHMENT, "attachment", "Please submit the attachment", true)
+		.queue();
+		
+		jda.upsertCommand("upload-s3-test", "S3Test").setGuildOnly(true)
+		.addOption(OptionType.ATTACHMENT, "attachment", "Please submit the attachment", true)
+		.queue();
+    		
+		jda.upsertCommand("my-info", "Displays user information").setGuildOnly(true)
+    	.queue();
+    	
+		jda.upsertCommand("make-quiz", "Make a quiz").setGuildOnly(true)
+		.addOption(OptionType.STRING, "quiz-name", "Please assign a label to this quiz.", true)
+    	.queue();
     	}
     	catch(Exception e) {
     		e.printStackTrace();

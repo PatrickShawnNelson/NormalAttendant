@@ -36,7 +36,7 @@ public final class BotSensor {
 							
 	//Array of possible ways to refer to this specific bot
 	public final List<String> botPronouns = Arrays.asList("totally normal attendant", "that bot", "ass bot", "weak bot", "stupid bot", 
-			"trash bot", "garbage bot", "this bot", "dam bot", "damn bot", "fucking bot", "fuckin bot", "useless bot", 
+			"trash bot", "garbage bot", "this bot", "dam bot", "damn bot", "fucking bot", "fuckin bot", "useless bot", "headass bot", "stinky bot", 
 			"lame bot", "you bot", "garb bot", "dumbass bot", "ugly bot", "bitch bot", "attendant", "normal attendant");
 	//----------------------------------------------------------------------------
 	//								 Sensors [End]
@@ -87,7 +87,7 @@ public final class BotSensor {
 	public final String [] botReplyHappy = {"deleteMessage", "He's not actually happy for you.", "https://tenor.com/view/doubt-press-x-press-la-noire-gif-18717264"};
 	
 	//List of replies to neutral emoji
-	public final String [] botReplyNeutral = {"deleteMessage", ":neutral_face:", "", Emote.NOTMAD, "https://tenor.com/view/kanye-stare-lmao-neutral-face-not-funny-gif-23051909"};
+	public final String [] botReplyNeutral = {"deleteMessage","deleteMessage", ":neutral_face:", "", "", "", "", Emote.NOTMAD, "https://tenor.com/view/kanye-stare-lmao-neutral-face-not-funny-gif-23051909"};
 	
 	//Emoji specific responses
 	public final Map<String, String> emojiResp = Stream.of(new String[][]{

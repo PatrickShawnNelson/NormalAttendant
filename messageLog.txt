@@ -1,0 +1,24 @@
+Aug 15, 2023 10:34:45 PM disc.discbot.events.MessageListener onMessageReceived
+INFO: xshojikix: testing
+Aug 15, 2023 10:34:45 PM disc.discbot.events.MessageListener onMessageReceived
+INFO: xshojikix's Roles: []
+Aug 15, 2023 10:36:19 PM disc.discbot.events.MessageListener onMessageReceived
+INFO: xshojikix: test 1
+Aug 15, 2023 10:36:19 PM disc.discbot.events.MessageListener onMessageReceived
+INFO: xshojikix's Roles: []
+Aug 15, 2023 10:36:47 PM disc.discbot.events.MessageListener onMessageReceived
+INFO: xshojikix: test 2
+Aug 15, 2023 10:36:47 PM disc.discbot.events.MessageListener onMessageReceived
+INFO: xshojikix's Roles: []
+Aug 15, 2023 10:42:36 PM disc.discbot.events.MessageListener onMessageReceived
+INFO: xshojikix: test 8
+Aug 15, 2023 10:42:36 PM disc.discbot.events.MessageListener onMessageReceived
+INFO: xshojikix's Roles: []
+Aug 15, 2023 10:43:42 PM disc.discbot.events.MessageListener onMessageReceived
+INFO: xshojikix: test 9
+Aug 15, 2023 10:43:42 PM disc.discbot.events.MessageListener onMessageReceived
+INFO: xshojikix's Roles: []
+Aug 15, 2023 10:44:06 PM disc.discbot.events.MessageListener onMessageReceived
+INFO: xshojikix: trest
+Aug 15, 2023 10:44:06 PM disc.discbot.events.MessageListener onMessageReceived
+INFO: xshojikix's Roles: []
